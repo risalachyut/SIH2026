@@ -226,6 +226,37 @@ export default function DashboardPage() {
           ))}
         </div>
 
+        {/* Recent Activity */}
+        <h3 style={{ marginBottom: '1rem', fontSize: '1.125rem' }}>Recent Activity</h3>
+        <div className="glass-card" style={{ padding: '1.5rem', marginBottom: '2rem' }}>
+          {loading ? (
+            <div className="skeleton" style={{ height: '4rem', width: '100%', marginBottom: '1rem' }} />
+          ) : stats.enrolledCourses === 0 ? (
+            <p style={{ color: 'var(--text-muted)', fontSize: '0.875rem' }}>No recent activity. Start your first course!</p>
+          ) : (
+            <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+              <li style={{ display: 'flex', gap: '1rem', alignItems: 'flex-start' }}>
+                <div style={{ padding: '0.5rem', background: 'rgba(47, 141, 70, 0.1)', color: 'var(--accent-indigo)', borderRadius: '50%' }}>
+                  <BookOpen size={16} />
+                </div>
+                <div>
+                  <div style={{ fontSize: '0.9375rem', fontWeight: 500 }}>Continued learning Introduction to Cooperative Laws</div>
+                  <div style={{ fontSize: '0.8125rem', color: 'var(--text-muted)' }}>2 hours ago</div>
+                </div>
+              </li>
+              <li style={{ display: 'flex', gap: '1rem', alignItems: 'flex-start' }}>
+                <div style={{ padding: '0.5rem', background: 'rgba(34, 197, 94, 0.1)', color: 'var(--accent-emerald)', borderRadius: '50%' }}>
+                  <Award size={16} />
+                </div>
+                <div>
+                  <div style={{ fontSize: '0.9375rem', fontWeight: 500 }}>Earned certificate: Cooperative Accounting Basics</div>
+                  <div style={{ fontSize: '0.8125rem', color: 'var(--text-muted)' }}>Yesterday</div>
+                </div>
+              </li>
+            </ul>
+          )}
+        </div>
+
         {/* Platform Info */}
         <div
           className="glass-card-static"
