@@ -6,43 +6,43 @@
    ============================================================ */
 
 :root {
-  /* === Color Palette (Clean Minimalist Light Theme) === */
-  --bg-primary: #f8fafc;
-  --bg-secondary: #ffffff;
+  /* === Color Palette (GeeksForGeeks Inspired) === */
+  --bg-primary: #fdfdfd;
+  --bg-secondary: #f0f2f5;
   --bg-card: #ffffff;
-  --bg-card-hover: #f1f5f9;
-  --bg-glass: rgba(255, 255, 255, 0.85);
-  --bg-glass-light: rgba(255, 255, 255, 0.95);
+  --bg-card-hover: #f9fbf9;
+  --bg-glass: rgba(255, 255, 255, 0.95);
+  --bg-glass-light: rgba(255, 255, 255, 1);
   --bg-input: #ffffff;
 
-  --border-subtle: rgba(15, 23, 42, 0.08);
-  --border-medium: rgba(15, 23, 42, 0.15);
-  --border-accent: rgba(37, 99, 235, 0.3);
+  --border-subtle: rgba(0, 0, 0, 0.08);
+  --border-medium: rgba(0, 0, 0, 0.15);
+  --border-accent: rgba(47, 141, 70, 0.3);
 
-  --text-primary: #0f172a;
+  --text-primary: #1e293b;
   --text-secondary: #475569;
-  --text-muted: #94a3b8;
-  --text-accent: #2563eb;
+  --text-muted: #64748b;
+  --text-accent: #2f8d46;
 
-  /* === Accent Colors (Assuring & Professional) === */
-  --accent-indigo: #4f46e5;
-  --accent-indigo-light: #6366f1;
-  --accent-indigo-dark: #3730a3;
-  --accent-blue: #2563eb;
-  --accent-blue-light: #3b82f6;
-  --accent-cyan: #0891b2;
-  --accent-emerald: #059669;
-  --accent-amber: #d97706;
-  --accent-rose: #e11d48;
-  --accent-violet: #7c3aed;
-  --accent-purple: #9333ea;
+  /* === Accent Colors (GeeksForGeeks Green Vibe) === */
+  --accent-indigo: #2f8d46;
+  --accent-indigo-light: #4ade80;
+  --accent-indigo-dark: #166534;
+  --accent-blue: #2f8d46;
+  --accent-blue-light: #4ade80;
+  --accent-cyan: #0d9488;
+  --accent-emerald: #2f8d46;
+  --accent-amber: #f59e0b;
+  --accent-rose: #ef4444;
+  --accent-violet: #2f8d46;
+  --accent-purple: #2f8d46;
 
-  /* === Gradients (Subtle & Flat) === */
-  --gradient-hero: linear-gradient(135deg, #2563eb, #4f46e5);
+  /* === Gradients (Solid Colors for clean tech look) === */
+  --gradient-hero: #2f8d46;
   --gradient-card: transparent;
-  --gradient-accent: #2563eb;
-  --gradient-success: #059669;
-  --gradient-warm: #d97706;
+  --gradient-accent: #2f8d46;
+  --gradient-success: #22c55e;
+  --gradient-warm: #f59e0b;
   --gradient-glow: none;
   --gradient-mesh: none;
 
@@ -55,21 +55,21 @@
   --space-2xl: 3rem;
   --space-3xl: 4rem;
 
-  /* === Border Radius === */
-  --radius-sm: 0.5rem;
-  --radius-md: 0.75rem;
-  --radius-lg: 1rem;
-  --radius-xl: 1.25rem;
-  --radius-2xl: 1.5rem;
+  /* === Border Radius (Slightly boxy, tech-platform style) === */
+  --radius-sm: 0.25rem;
+  --radius-md: 0.375rem;
+  --radius-lg: 0.5rem;
+  --radius-xl: 0.75rem;
+  --radius-2xl: 1rem;
   --radius-full: 9999px;
 
-  /* === Shadows === */
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
-  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
-  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.5);
-  --shadow-glow-indigo: 0 0 20px rgba(99, 102, 241, 0.3);
-  --shadow-glow-blue: 0 0 20px rgba(59, 130, 246, 0.3);
-  --shadow-glow-emerald: 0 0 20px rgba(16, 185, 129, 0.3);
+  /* === Shadows (Flat tech style) === */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.05);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.05);
+  --shadow-glow-indigo: 0 4px 6px rgba(47, 141, 70, 0.2);
+  --shadow-glow-blue: 0 4px 6px rgba(47, 141, 70, 0.2);
+  --shadow-glow-emerald: 0 4px 6px rgba(47, 141, 70, 0.2);
 
   /* === Transitions === */
   --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
