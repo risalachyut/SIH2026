@@ -102,6 +102,32 @@ export default function CourseDetailPage({ params }: { params: Promise<{ id: str
     setCompleting(false);
   };
 
+  const [enrolling, setEnrolling] = useState(false);
+
+  const enrollInCourse = async () => {
+    if (!user || !course) return;
+    setEnrolling(true);
+    try {
+      const { data, error } = await supabase
+        .from('enrollments')
+        .insert({
+          user_id: user.id,
+          course_id: course.id,
+          progress: 0,
+          completed_modules: [],
+        })
+        .select()
+        .single();
+      
+      if (error) throw error;
+      setEnrollment(data);
+    } catch (err) {
+      console.error('Failed to enroll:', err);
+    } finally {
+      setEnrolling(false);
+    }
+  };
+
   const generateCertificate = async () => {
     if (!user || !course) return;
 
@@ -242,7 +268,23 @@ export default function CourseDetailPage({ params }: { params: Promise<{ id: str
 
           {/* Module content */}
           <div className="glass-card-static" style={{ padding: '2rem', minHeight: '400px' }}>
-            {activeModuleData ? (
+            {!enrollment ? (
+              <div className="empty-state" style={{ minHeight: '300px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center' }}>
+                <BookOpen size={48} style={{ color: 'var(--accent-indigo)', marginBottom: '1rem' }} />
+                <h2 style={{ marginBottom: '1rem', fontSize: '1.5rem' }}>Ready to start learning?</h2>
+                <p style={{ color: 'var(--text-muted)', marginBottom: '2rem', maxWidth: '400px' }}>
+                  Enroll in this course to access all modules, track your progress, and earn your certificate upon completion.
+                </p>
+                <button 
+                  className="btn btn-primary" 
+                  onClick={enrollInCourse}
+                  disabled={enrolling}
+                  style={{ padding: '0.75rem 2rem', fontSize: '1rem' }}
+                >
+                  {enrolling ? <Loader2 size={20} className="spinner" /> : 'Enroll in Course'}
+                </button>
+              </div>
+            ) : activeModuleData ? (
               <>
                 <h2 style={{ fontSize: '1.25rem', marginBottom: '0.5rem' }}>{activeModuleData.title}</h2>
                 <div style={{ display: 'flex', gap: '0.75rem', marginBottom: '1.5rem', fontSize: '0.8125rem', color: 'var(--text-muted)' }}>

@@ -38,6 +38,7 @@ export default function DashboardPage() {
     certificates: 0,
     averageProgress: 0,
   });
+  const [recentActivity, setRecentActivity] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -46,12 +47,12 @@ export default function DashboardPage() {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const { data: enrollments }: { data: any } = await supabase
           .from('enrollments')
-          .select('progress, completed_at');
+          .select('progress, completed_at, updated_at, course:courses(title)');
 
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const { data: certs }: { data: any } = await supabase
           .from('certificates')
-          .select('id');
+          .select('id, issued_at, course:courses(title)');
 
         if (enrollments) {
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -67,6 +68,47 @@ export default function DashboardPage() {
             certificates: certs?.length || 0,
             averageProgress: avgProgress,
           });
+
+          const activities = [];
+          
+          enrollments.forEach((e: any) => {
+            if (e.progress > 0 && !e.completed_at) {
+              activities.push({
+                type: 'enrollment',
+                title: `Continued learning: ${e.course?.title}`,
+                date: new Date(e.updated_at),
+                icon: <BookOpen size={16} />,
+                colorClass: 'var(--accent-indigo)',
+                bgClass: 'rgba(47, 141, 70, 0.1)'
+              });
+            } else if (e.progress === 0) {
+              activities.push({
+                type: 'enrollment',
+                title: `Started course: ${e.course?.title}`,
+                date: new Date(e.updated_at),
+                icon: <BookOpen size={16} />,
+                colorClass: 'var(--accent-indigo)',
+                bgClass: 'rgba(47, 141, 70, 0.1)'
+              });
+            }
+          });
+
+          if (certs) {
+            certs.forEach((c: any) => {
+              activities.push({
+                type: 'certificate',
+                title: `Earned certificate: ${c.course?.title}`,
+                date: new Date(c.issued_at),
+                icon: <Award size={16} />,
+                colorClass: 'var(--accent-emerald)',
+                bgClass: 'rgba(34, 197, 94, 0.1)'
+              });
+            });
+          }
+
+          // Sort descending by date
+          activities.sort((a, b) => b.date.getTime() - a.date.getTime());
+          setRecentActivity(activities.slice(0, 5)); // Keep top 5
         }
       } catch (err) {
         console.error('Failed to fetch stats:', err);
@@ -231,28 +273,23 @@ export default function DashboardPage() {
         <div className="glass-card" style={{ padding: '1.5rem', marginBottom: '2rem' }}>
           {loading ? (
             <div className="skeleton" style={{ height: '4rem', width: '100%', marginBottom: '1rem' }} />
-          ) : stats.enrolledCourses === 0 ? (
+          ) : recentActivity.length === 0 ? (
             <p style={{ color: 'var(--text-muted)', fontSize: '0.875rem' }}>No recent activity. Start your first course!</p>
           ) : (
             <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-              <li style={{ display: 'flex', gap: '1rem', alignItems: 'flex-start' }}>
-                <div style={{ padding: '0.5rem', background: 'rgba(47, 141, 70, 0.1)', color: 'var(--accent-indigo)', borderRadius: '50%' }}>
-                  <BookOpen size={16} />
-                </div>
-                <div>
-                  <div style={{ fontSize: '0.9375rem', fontWeight: 500 }}>Continued learning Introduction to Cooperative Laws</div>
-                  <div style={{ fontSize: '0.8125rem', color: 'var(--text-muted)' }}>2 hours ago</div>
-                </div>
-              </li>
-              <li style={{ display: 'flex', gap: '1rem', alignItems: 'flex-start' }}>
-                <div style={{ padding: '0.5rem', background: 'rgba(34, 197, 94, 0.1)', color: 'var(--accent-emerald)', borderRadius: '50%' }}>
-                  <Award size={16} />
-                </div>
-                <div>
-                  <div style={{ fontSize: '0.9375rem', fontWeight: 500 }}>Earned certificate: Cooperative Accounting Basics</div>
-                  <div style={{ fontSize: '0.8125rem', color: 'var(--text-muted)' }}>Yesterday</div>
-                </div>
-              </li>
+              {recentActivity.map((activity, idx) => (
+                <li key={idx} style={{ display: 'flex', gap: '1rem', alignItems: 'flex-start' }}>
+                  <div style={{ padding: '0.5rem', background: activity.bgClass, color: activity.colorClass, borderRadius: '50%' }}>
+                    {activity.icon}
+                  </div>
+                  <div>
+                    <div style={{ fontSize: '0.9375rem', fontWeight: 500 }}>{activity.title}</div>
+                    <div style={{ fontSize: '0.8125rem', color: 'var(--text-muted)' }}>
+                      {activity.date.toLocaleDateString('en-IN', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })}
+                    </div>
+                  </div>
+                </li>
+              ))}
             </ul>
           )}
         </div>
