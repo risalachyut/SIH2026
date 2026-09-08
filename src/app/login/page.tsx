@@ -60,58 +60,34 @@ export default function LoginPage() {
         position: 'relative',
       }}
     >
-      {/* Decorative orbs */}
       <div
-        style={{
-          position: 'absolute',
-          width: '500px',
-          height: '500px',
-          borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(99,102,241,0.12), transparent 70%)',
-          top: '-150px',
-          left: '-100px',
-          pointerEvents: 'none',
-        }}
-      />
-      <div
-        style={{
-          position: 'absolute',
-          width: '400px',
-          height: '400px',
-          borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(139,92,246,0.1), transparent 70%)',
-          bottom: '-100px',
-          right: '-100px',
-          pointerEvents: 'none',
-        }}
-      />
-
-      <div
-        className="glass-card-static"
         style={{
           width: '100%',
-          maxWidth: '440px',
+          maxWidth: '400px',
           padding: '2.5rem',
           position: 'relative',
           zIndex: 1,
+          background: 'transparent',
+          border: '1px solid var(--border-subtle)',
+          borderRadius: 'var(--radius-lg)',
         }}
       >
         {/* Logo */}
         <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
           <div
             style={{
-              width: '3.5rem',
-              height: '3.5rem',
-              borderRadius: 'var(--radius-lg)',
-              background: 'var(--gradient-accent)',
+              width: '3rem',
+              height: '3rem',
+              borderRadius: 'var(--radius-md)',
+              background: 'transparent',
+              border: '1px solid var(--border-medium)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              margin: '0 auto 1rem',
-              boxShadow: 'var(--shadow-glow-indigo)',
+              margin: '0 auto 1.5rem',
             }}
           >
-            <GraduationCap size={24} color="white" />
+            <GraduationCap size={20} color="var(--text-primary)" />
           </div>
           <h2 style={{ fontSize: '1.5rem', marginBottom: '0.5rem' }}>
             {isLogin ? 'Welcome Back' : 'Create Account'}

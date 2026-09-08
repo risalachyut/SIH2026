@@ -83,54 +83,53 @@ export default function LandingPage() {
             title: 'Smart LMS',
             description:
               'Structured courses on cooperative laws, accounting, management, and vocational skills. Track progress, complete modules, and earn certificates.',
-            color: 'var(--accent-indigo)',
-            bg: 'rgba(99, 102, 241, 0.12)',
           },
           {
             icon: <Bot size={24} />,
             title: 'AI Learning Assistant',
             description:
               'RAG-powered AI chatbot that understands cooperative domain knowledge. Ask questions, get instant answers with cited sources.',
-            color: 'var(--accent-violet)',
-            bg: 'rgba(139, 92, 246, 0.12)',
           },
           {
             icon: <Award size={24} />,
             title: 'QR-Verified Certificates',
             description:
               'Earn verifiable digital certificates with embedded QR codes. Anyone can scan to verify authenticity — works offline once downloaded.',
-            color: 'var(--accent-emerald)',
-            bg: 'rgba(16, 185, 129, 0.12)',
           },
           {
             icon: <Briefcase size={24} />,
             title: 'Employment Ecosystem',
             description:
               'AI-powered job matching connects skilled cooperative members with relevant opportunities. Skill-based recommendations and application tracking.',
-            color: 'var(--accent-amber)',
-            bg: 'rgba(245, 158, 11, 0.12)',
           },
           {
             icon: <Users size={24} />,
             title: 'Cooperative ERP',
             description:
               'Lightweight ERP features for membership management, role-based access, and organizational tracking — purpose-built for cooperatives.',
-            color: 'var(--accent-cyan)',
-            bg: 'rgba(6, 182, 212, 0.12)',
           },
           {
             icon: <GraduationCap size={24} />,
             title: 'Offline-First Design',
             description:
               'Progressive Web App architecture ensures the platform works without internet. Courses, certificates, and cached AI responses are available offline.',
-            color: 'var(--accent-rose)',
-            bg: 'rgba(244, 63, 94, 0.12)',
           },
         ].map((feature) => (
           <div key={feature.title} className="glass-card feature-card">
             <div
               className="feature-icon"
-              style={{ background: feature.bg, color: feature.color }}
+              style={{ 
+                background: 'transparent', 
+                color: 'var(--text-primary)',
+                border: '1px solid var(--border-medium)',
+                width: '3rem',
+                height: '3rem',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                borderRadius: 'var(--radius-md)',
+                marginBottom: '1rem'
+              }}
             >
               {feature.icon}
             </div>
