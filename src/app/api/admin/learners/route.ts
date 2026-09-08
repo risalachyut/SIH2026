@@ -25,11 +25,15 @@ export async function GET(request: Request) {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
     }
 
+    // Fetch all auth users to get emails
+    const { data: authUsers, error: authError } = await adminClient.auth.admin.listUsers();
+    if (authError) throw authError;
+
     // Fetch all learners
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const { data: learners, error: learnersError }: { data: any, error: any } = await adminClient
       .from('profiles')
-      .select('id, email, full_name, role, created_at')
+      .select('id, full_name, role, created_at')
       .eq('role', 'learner')
       .order('created_at', { ascending: false });
 
@@ -50,6 +54,9 @@ export async function GET(request: Request) {
     // Calculate progress for each learner
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const learnersWithProgress = learners.map((learner: any) => {
+      const authUser = authUsers.users.find((u) => u.id === learner.id);
+      const email = authUser?.email || 'N/A';
+
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const userEnrollments = enrollments.filter((e: any) => e.user_id === learner.id);
       const totalEnrolled = userEnrollments.length;
@@ -62,6 +69,7 @@ export async function GET(request: Request) {
 
       return {
         ...learner,
+        email,
         stats: {
           totalEnrolled,
           totalCompleted,
