@@ -69,7 +69,8 @@ export default function DashboardPage() {
             averageProgress: avgProgress,
           });
 
-          const activities = [];
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          const activities: any[] = [];
           
           enrollments.forEach((e: any) => {
             if (e.progress > 0 && !e.completed_at) {
