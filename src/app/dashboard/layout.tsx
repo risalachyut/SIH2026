@@ -16,14 +16,19 @@ import {
   Menu,
   X,
   WifiOff,
+  Users,
 } from 'lucide-react';
 
-const navItems = [
+const learnerNavItems = [
   { href: '/dashboard', icon: LayoutDashboard, label: 'Dashboard' },
   { href: '/dashboard/courses', icon: BookOpen, label: 'Courses' },
   { href: '/dashboard/ai-chat', icon: Bot, label: 'AI Assistant' },
   { href: '/dashboard/certificates', icon: Award, label: 'Certificates' },
   { href: '/dashboard/jobs', icon: Briefcase, label: 'Job Board' },
+];
+
+const adminNavItems = [
+  { href: '/dashboard/admin', icon: LayoutDashboard, label: 'Admin Dashboard' },
 ];
 
 export default function DashboardLayout({
@@ -104,7 +109,8 @@ export default function DashboardLayout({
         <nav className="sidebar-nav">
           <span className="sidebar-section-title">Main Menu</span>
 
-          {navItems.map((item) => {
+          {/* Dynamic Navigation Based on Role */}
+          {(profile?.role === 'admin' ? adminNavItems : learnerNavItems).map((item) => {
             const Icon = item.icon;
             const active = pathname === item.href;
             return (

@@ -3,13 +3,14 @@
 import { useState, FormEvent } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/contexts/AuthContext';
-import { GraduationCap, Mail, Lock, User, ArrowRight, Loader2 } from 'lucide-react';
+import { GraduationCap, Mail, Lock, User, Shield, ArrowRight, Loader2 } from 'lucide-react';
 
 export default function LoginPage() {
   const [isLogin, setIsLogin] = useState(true);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [fullName, setFullName] = useState('');
+  const [role, setRole] = useState('learner');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
@@ -35,7 +36,7 @@ export default function LoginPage() {
           setLoading(false);
           return;
         }
-        const { error: err } = await signUp(email, password, fullName);
+        const { error: err } = await signUp(email, password, fullName, role);
         if (err) {
           setError(err);
         } else {
@@ -119,32 +120,62 @@ export default function LoginPage() {
         {/* Form */}
         <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
           {!isLogin && (
-            <div className="input-group">
-              <label className="input-label" htmlFor="fullName">
-                Full Name
-              </label>
-              <div style={{ position: 'relative' }}>
-                <User
-                  size={16}
-                  style={{
-                    position: 'absolute',
-                    left: '0.875rem',
-                    top: '50%',
-                    transform: 'translateY(-50%)',
-                    color: 'var(--text-muted)',
-                  }}
-                />
-                <input
-                  id="fullName"
-                  type="text"
-                  className="input"
-                  placeholder="Enter your full name"
-                  value={fullName}
-                  onChange={(e) => setFullName(e.target.value)}
-                  style={{ paddingLeft: '2.5rem' }}
-                />
+            <>
+              <div className="input-group">
+                <label className="input-label" htmlFor="fullName">
+                  Full Name
+                </label>
+                <div style={{ position: 'relative' }}>
+                  <User
+                    size={16}
+                    style={{
+                      position: 'absolute',
+                      left: '0.875rem',
+                      top: '50%',
+                      transform: 'translateY(-50%)',
+                      color: 'var(--text-muted)',
+                    }}
+                  />
+                  <input
+                    id="fullName"
+                    type="text"
+                    className="input"
+                    placeholder="Enter your full name"
+                    value={fullName}
+                    onChange={(e) => setFullName(e.target.value)}
+                    style={{ paddingLeft: '2.5rem' }}
+                  />
+                </div>
               </div>
-            </div>
+
+              <div className="input-group">
+                <label className="input-label" htmlFor="role">
+                  Account Type
+                </label>
+                <div style={{ position: 'relative' }}>
+                  <Shield
+                    size={16}
+                    style={{
+                      position: 'absolute',
+                      left: '0.875rem',
+                      top: '50%',
+                      transform: 'translateY(-50%)',
+                      color: 'var(--text-muted)',
+                    }}
+                  />
+                  <select
+                    id="role"
+                    className="input"
+                    value={role}
+                    onChange={(e) => setRole(e.target.value)}
+                    style={{ paddingLeft: '2.5rem', appearance: 'none' }}
+                  >
+                    <option value="learner">Student / Learner</option>
+                    <option value="admin">Administrator</option>
+                  </select>
+                </div>
+              </div>
+            </>
           )}
 
           <div className="input-group">

@@ -2,6 +2,7 @@
 
 import { useAuth } from '@/contexts/AuthContext';
 import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { supabase } from '@/lib/supabase';
 import Link from 'next/link';
 import {
@@ -24,6 +25,13 @@ interface DashboardStats {
 
 export default function DashboardPage() {
   const { profile } = useAuth();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (profile?.role === 'admin') {
+      router.push('/dashboard/admin');
+    }
+  }, [profile, router]);
   const [stats, setStats] = useState<DashboardStats>({
     enrolledCourses: 0,
     completedCourses: 0,
